@@ -15,8 +15,8 @@ class CreateRolesPermissionsTable extends Migration
     {
         Schema::create('roles_permissions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('fk_roles');
-            $table->unsignedInteger('fk_permissions');
+            $table->unsignedBigInteger('fk_roles');
+            $table->unsignedBigInteger('fk_permissions');
             $table->enum('status', ['ACTIVO', 'INACTIVO']);
             $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();

@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('position');
             $table->enum('status', ['ACTIVO', 'INACTIVO']);
             $table->rememberToken();
-            $table->unsignedInteger('fk_roles');
+            $table->unsignedBigInteger('fk_roles');
             $table->softDeletes($column = 'deleted_at', $precision = 0);
             $table->timestamps();
 

@@ -1,0 +1,74 @@
+:root{
+    --red: #FF2F57;
+    --blue: #00e7d1;
+    --grey: #8f8d8d;
+    --white: #fff;
+}
+.login {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../images/login-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-sari-blue{
+    background-color: var(--blue);
+}
+
+.d-flex{display: flex;}
+.d-block{display: block;}
+/* TEXT */
+.text-center{text-align: center;}
+.text-left {text-align: left;}
+.justify-end{justify-content: flex-end;}
+.justify-center {justify-content: center;}
+.align-center {align-items: center;}
+.flex-column{flex-direction: column;}
+.c-white{color: var(--white);}
+/* MARGIN */
+.mr-5{ margin-right: 25px;}
+.mt-3 {margin-top: 15px;}
+.ml-1 {margin-left: 1em;}
+.ml-2 {margin-left: 2em;}
+.pl-1 {padding-left: 1em;}
+.pl-2 {padding-left: 2em;}
+.mt-4 {margin-top: 20px;}
+
+.w-100{width: 100%;}
+.w-50{width: 50%;}
+.w-75{width: 75%;}
+.w-90{width: 90%;}
+.h-100 {height: 100%;}
+.h-90 {height: calc(100% - 51px);}
+
+/* Font-size */
+.fz-50{font-size: 50px;}
+.fz-20{font-size: 20px;}
+
+.btn-default {
+    padding: 0.5em 3.5em;
+    background-color: var(--white);
+    border: 1px solid var(--white);
+    border-radius: 1.5em;
+}
+
+
+.input{
+    width: 100%;
+    font-size: 2em;
+    border-radius: 1em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.btn-default:hover{
+    background-color: var(--grey);
+    color: var(--red);
+    transition: all 300ms ease;
+}
+
+.img-logo{
+    width: 50px;
+}
