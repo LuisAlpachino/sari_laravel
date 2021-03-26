@@ -1,32 +1,118 @@
 <nav x-data="{ open: false }" class="bg-sari-blue border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex justify-between h-20">
             <div class="flex">
                 {{-- logo user --}}
-                <div>
-                    <img src={{url('images/')}} alt="">
+                <div class="rounded-full 
+                            h-16 w-16 
+                            flex
+                            items-center 
+                            justify-center 
+                            bg-white self-center 
+                            bg-no-repeat bg-cover 
+                            mr-6" 
+                     style="background-image: url({{url('images/user.png')}})">
                 </div>
 
+                <div class="flex 
+                            items-center 
+                            text-md 
+                            cursor-default 
+                            mr-5
+                            uppercase 
+                            font-medium 
+                            text-gray-500 
+                            hover:text-gray-700 
+                            hover:border-gray-300 
+                            focus:outline-none 
+                            focus:text-gray-700 
+                            focus:border-gray-300 
+                            transition 
+                            duration-150 
+                            ease-in-out">
+                    <div>{{ Auth::user()->name }}</div>
+                </div>
+                <div class=" w-10
+                            bg-no-repeat
+                            bg-center
+                            font-medium 
+                            text-gray-500 
+                            hover:text-gray-700 
+                            hover:border-gray-300 
+                            focus:outline-none 
+                            focus:text-gray-700 
+                            focus:border-gray-300 
+                            transition 
+                            duration-150 
+                            ease-in-out
+                            "
+                style="background-image: url({{url('images/icons/outline/mail.svg')}})"
+                >
+                    
+                </div>
+                <div class=" w-10
+                            bg-no-repeat
+                            bg-center
+                            font-medium 
+                            text-gray-500 
+                            hover:text-gray-700 
+                            hover:border-gray-300 
+                            focus:outline-none 
+                            focus:text-gray-700 
+                            focus:border-gray-300 
+                            transition 
+                            duration-150 
+                            ease-in-out
+                            "
+                style="background-image: url({{url('images/icons/outline/bell.svg')}})"
+                >
+                </div>
+                
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
+                {{-- <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <div class="w-36">
                             <x-application-logo class="block h-10 fill-current text-gray-600" />
                         </div>
                     </a>
-                </div>
+                </div> --}}
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
             </div>
 
+            <div class="flex items-center text-sm font-medium text-gray-500 ">
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <a class="bg-white 
+                    rounded-full py-3 
+                    px-6 
+                    hover:text-white
+                    hover:border-gray-300 
+                    hover:bg-red-600 
+                    cursor-pointer
+                    focus:outline-none 
+                    focus:text-gray-700 
+                    focus:border-gray-300  
+                    transition duration-150 ease-in-out
+                    " :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Salir') }}
+                    </a>
+                </form>
+            </div>
+
+
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            {{-- <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
@@ -53,7 +139,7 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
-            </div>
+            </div> --}}
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">

@@ -22,16 +22,29 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class="bg-white shadow">
+            {{--<header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            </header> --}}
+            <div class="grid grid-cols-5 grap-4">
+                <div class="col-span-1">
+                    <x-side-nav></x-side-nav>
+                </div>
+                <div class="col-span-4">
+                    <div class="py-12">
+                        <div class=" mx-auto sm:px-6 lg:px-8">
+                            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                <!-- Page Content -->
+                                <main>
+                                    {{ $slot }}
+                                </main>         
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <script src="https://use.fontawesome.com/9fb45ff30d.js"></script>
     </body>
 </html>

@@ -1,5 +1,9 @@
 <x-guest-layout>
-    
+ @if (!Auth::guest())
+ <script>
+     window.location.href='/dashboard'
+ </script>
+ @endif   
 <div class="login">
     <div class="h-100 flex">
         <div class=" w-50  flex flex-wrap content-center ">
