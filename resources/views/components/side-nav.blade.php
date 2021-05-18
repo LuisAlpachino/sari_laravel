@@ -13,9 +13,9 @@
             </a>
         </li>
         <li class="mt-6 py-1  cursor-pointer">
-            <x-nav-link  :href="route('reports-day')" :active="request()->routeIs('reports-day')">
+            <x-nav-link  :href="route('create.report')" :active="request()->routeIs('create.report')">
                 <i class="fa fa-file-text fa-lg mr-1 " aria-hidden="true"></i>
-                {{ __('Reportes del día') }} 
+                {{ __('Nuevo reporte') }} 
             </x-nav-link>
         </li>     
         <li class="mt-6 py-1 cursor-pointer">
@@ -31,7 +31,7 @@
             </x-nav-link>
         </li>
         <li class="mt-6 py-1 cursor-pointer">
-            <x-nav-link  :href="route('history')" :active="request()->routeIs('history')">
+            <x-nav-link  :href="route('history.reports')" :active="request()->routeIs('history.reports')">
                 <i class="fa fa-history fa-lg mr-1" aria-hidden="true"></i>
                 {{ __('Historial') }} 
             </x-nav-link>    
