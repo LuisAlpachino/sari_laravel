@@ -19,7 +19,7 @@ class ReportController extends Controller
         $last_report = Report::where('id', '>', 0)->where('fk_users', $request->user()->id)->orderBy('created_at', 'desc')->first();
         $report;
 
-        if($last_report->fk_news_types == null && $last_report->fk_municipalities == null ) {
+        if($last_report && $last_report->fk_news_types == null && $last_report->fk_municipalities == null ) {
             $report = $last_report;
         } else {
             $report = Report::create([
