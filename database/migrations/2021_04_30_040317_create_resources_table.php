@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNoticeTypesTable extends Migration
+class CreateResourcesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateNoticeTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notice_types', function (Blueprint $table) {
+        Schema::create('resources', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->enum('status', ['ACTIVO', 'INACTIVO']);            
-            $table->timestamps();
+            $table->unsignedBigInteger('fk_reports');
+            $table->string('url');
             $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->timestamps();
+            $table->foreign('fk_reports')->references('id')->on('reports');
         });
     }
 
@@ -30,6 +30,6 @@ class CreateNoticeTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notice_types');
+        Schema::dropIfExists('resources');
     }
 }

@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,17 +32,38 @@ Route::get('/reports-day', function () {
     return view('layouts.dashboard.reports-day');
 })->middleware(['auth'])->name('reports-day');
 
-Route::get('/notes', function () {
-    return view('layouts.dashboard.note');
-})->middleware(['auth'])->name('notes');
+// Rutas reportes
 
-Route::get('/medias', function () {
-    return view('layouts.dashboard.media');
-})->middleware(['auth'])->name('medias');
+Route::get('/reports', [ReportController::class, 'allReportsEditor'])->middleware(['auth'])->name('reports.editor');
+Route::get('/report-detail/{id}', [ReportController::class, 'detail'])->middleware(['auth'])->name('report.detail')->where('id', '[0-9]+');
+Route::get('/new-report', [ReportController::class, 'create'])->middleware(['auth'])->name('create.report');
+Route::get('/edit-report/{id}', [ReportController::class, 'edit'])->middleware(['auth'])->name('edit.report')->where('id', '[0-9]+');
+Route::post('/save-report', [ReportController::class, 'save'])->middleware(['auth'])->name('save.report');
+Route::get('/delete-report/{id}', [ReportController::class, 'delete'])->middleware(['auth'])->name('delete.report')->where('id', '[0-9]+');
+Route::get('/history', [ReportController::class, 'history'])->middleware(['auth'])->name('history.reports');
+Route::post('/search', [ReportController::class, 'search'])->middleware(['auth'])->name('search.reports');
+Route::post('/search-editor', [ReportController::class, 'searchEditor'])->middleware(['auth'])->name('search.editor');
 
-Route::get('/history', function () {
-    return view('layouts.dashboard.history');
-})->middleware(['auth'])->name('history');
+// Ruta municipios
+Route::get('/municipalities/{id}', [ReportController::class, 'municipalities'])->middleware(['auth'])->name('get.municipalities')->where('id', '[0-9]+');
+
+// Rutas recursos multimedia
+
+Route::get('/media', [ResourceController::class, 'getResources'] )->middleware(['auth'])->name('medias');
+Route::get('get-resources/report/{id}', [ResourceController::class, 'getResourcesByReportId'])->middleware(['auth'])->name('get.resource')->where('id', '[0-9]+');
+Route::post('/save-resource', [ResourceController::class, 'save'])->middleware(['auth'])->name('save.resource');
+Route::get('/get-image/{filename}',  [ResourceController::class, 'getImage'])->middleware(['auth'])->name('getImage.resource');
+Route::get('/download/{filename}',  [ResourceController::class, 'downloadFile'])->middleware(['auth'])->name('download.resource');
+Route::post('/search-resources', [ResourceController::class, 'search'])->middleware(['auth'])->name('search.resources');
+Route::get('/delete/{filename}',  [ResourceController::class, 'deleteFile'])->middleware(['auth'])->name('delete.resource');
+
+// Rutas notas
+
+Route::post('/save-note', [NoteController::class, 'save'])->middleware(['auth'])->name('save.note');
+Route::get('/notes', [NoteController::class, 'notes'])->middleware(['auth'])->name('notes');
+Route::get('/note-detail/{id}', [NoteController::class, 'detail'])->middleware(['auth'])->name('note.detail')->where('id', '[0-9]+');
+Route::post('/search-notes', [NoteController::class, 'search'])->middleware(['auth'])->name('search.notes');
+
 
 Route::get('/configurations', function () {
     return view('layouts.dashboard.config');

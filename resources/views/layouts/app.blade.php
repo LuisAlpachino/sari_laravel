@@ -13,6 +13,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        @stack('css')
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -46,5 +47,6 @@
             </div>
         </div>
         <script src="https://use.fontawesome.com/9fb45ff30d.js"></script>
+        @stack('scripts')
     </body>
 </html>
