@@ -1,7 +1,5 @@
 window.onload = () => {
 
-    const url = 'http://localhost/laravel/sari_laravel/public/';
-
     const state = document.querySelector('#state');
     state.addEventListener('change', async() => {
       municipalities(state.options[state.selectedIndex].value);
@@ -11,7 +9,7 @@ window.onload = () => {
 
       municipalitySelected = document.querySelector('#municipalityId');
       try {
-        const resp = await fetch(url+'municipalities/'+ stateId);
+        const resp = await fetch(baseUrl+'/municipalities/'+ stateId);
           const {municipalities} = await resp.json();
           
           const selectMunipalities = document.querySelector('#municipality');

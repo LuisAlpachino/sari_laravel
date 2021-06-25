@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\NoteController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,13 +25,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 Route::get('/reports-day', function () {
     return view('layouts.dashboard.reports-day');
 })->middleware(['auth'])->name('reports-day');
+
+// Rutas dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/reports/month/{year}/{month}', [ReportController::class, 'reportMonthPie'])->middleware(['auth'])->where('year', '[0-9]+')->where('month', '[0-9]+')->name('reports.month');
+Route::get('/reports/year/{year}', [ReportController::class, 'reportYear'])->middleware(['auth'])->where('year', '[0-9]+')->name('reports.year');
 
 // Rutas reportes
 

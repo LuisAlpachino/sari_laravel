@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+
 use App\Models\Report;
 use App\Models\State;
 use App\Models\NewsType;
@@ -16,9 +18,9 @@ class ReportController extends Controller
         $states = State::all();
         $news_types = NewsType::all();
         
-        $last_report = Report::where('id', '>', 0)->where('fk_users', $request->user()->id)->orderBy('created_at', 'desc')->first();
+        $last_report = Report::where('id', '>', 0)->where('fk_users', $request->user()->id)->orderBy('id', 'desc')->first();
+        // $last_report = Report::where('id', '>', 0)->where('fk_users', $request->user()->id)->orderBy('created_at', 'desc')->first();
         $report;
-
         if($last_report && $last_report->fk_news_types == null && $last_report->fk_municipalities == null ) {
             $report = $last_report;
         } else {
@@ -174,6 +176,129 @@ class ReportController extends Controller
         return view('layouts.dashboard.reports', [
             'reports' => $reports
         ]);
+    }
+
+    public function reportMonth($year, $month) {
+
+        // $reports = Report::factory()->count(200)->create();
+        // die();
+
+        $list_reports = [];
+        if($year > 0 && ($month > 0 && $month <= 12)) {
+            
+            $date = Carbon::create($year, $month);
+            $next_day =  Carbon::create($year, $month)->addDay();
+            
+            // $now = Carbon::today('UTC');
+            // $next_day = $date->addDay();
+            
+    
+            
+            // $reports = Report::where('created_at', '>', $date)->where('created_at', '<', $next_day)->get();
+    
+            do {
+
+                $reportsApproved = Report::where('created_at', '>', $date)->where('created_at', '<', $next_day)->where('fk_status', 2)->count();
+                $reportsRejected = Report::where('created_at', '>', $date)->where('created_at', '<', $next_day)->where('fk_status', 3)->count();
+                $reportsPending = Report::where('created_at', '>', $date)->where('created_at', '<', $next_day)->where('fk_status', 1)->count();
+                
+                $list_reports[] = [$date->day, $reportsApproved, $reportsRejected, $reportsPending];
+    
+                $date->addDay();
+                $next_day->addDay();
+            }
+            while($next_day->day != 2);
+        }
+
+
+        return response()->json(['reports' => $list_reports]);
+
+    }
+    public function reportMonthPie($year, $month) {
+
+        $list_reports = [];
+        if($year > 0 && ($month > 0 && $month <= 12)) {
+            
+            $date = Carbon::create($year, $month);
+            $next_month =  Carbon::create($year, $month)->addMonth();
+            
+            $reportsApproved = Report::where('created_at', '>=', $date)->where('created_at', '<', $next_month)->where('fk_status', 2)->count();
+            $reportsRejected = Report::where('created_at', '>=', $date)->where('created_at', '<', $next_month)->where('fk_status', 3)->count();
+            $reportsPending = Report::where('created_at', '>=', $date)->where('created_at', '<', $next_month)->where('fk_status', 1)->count();
+            
+            
+            $list_reports[] = ['Reportes aprobados', $reportsApproved];
+            $list_reports[] = ['Reportes rechazados', $reportsRejected];
+            $list_reports[] = ['Reportes pendientes', $reportsPending];
+        }
+
+
+        return response()->json(['reports' => $list_reports]);
+
+    }
+
+    public function reportYear($year) {
+
+        $list_reports = [];
+        if($year > 0 ) {
+            
+            $date = Carbon::create($year, 1);
+            $next_month =  Carbon::create($year, 1)->addMonth();
+            for($i = 0; $i < 12; $i++) {
+                $reportsApproved = Report::where('created_at', '>=', $date)->where('created_at', '<', $next_month)->where('fk_status', 2)->count();
+                $reportsRejected = Report::where('created_at', '>=', $date)->where('created_at', '<', $next_month)->where('fk_status', 3)->count();
+                $reportsPending = Report::where('created_at', '>=', $date)->where('created_at', '<', $next_month)->where('fk_status', 1)->count();
+
+                switch($date->month) {
+                    case 1:
+                        $list_reports[] = ['Ene', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 2:
+                        $list_reports[] = ['Feb', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 3:
+                        $list_reports[] = ['Mar', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 4:
+                        $list_reports[] = ['Abr', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 5:
+                        $list_reports[] = ['May', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 6:
+                        $list_reports[] = ['Jun', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 7:
+                        $list_reports[] = ['Jul', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 8:
+                        $list_reports[] = ['Ago', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 9:
+                        $list_reports[] = ['Sep', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 10:
+                        $list_reports[] = ['Oct', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 11:
+                        $list_reports[] = ['Nov', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+                    case 12:
+                        $list_reports[] = ['Dic', $reportsApproved, $reportsRejected, $reportsPending];
+                    break;
+
+                }
+                // $list_reports[] = [$date->month, $reportsApproved, $reportsRejected, $reportsPending];
+    
+                $date->addMonth();
+                $next_month->addMonth();
+            }
+
+        }
+
+
+        return response()->json(['reports' => $list_reports]);
+
     }
 
 

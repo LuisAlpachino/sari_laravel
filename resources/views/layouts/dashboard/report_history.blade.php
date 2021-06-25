@@ -67,7 +67,7 @@
                         {{ $report->id}}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        {{ $report->title}}
+                        {{ Str::limit($report->title, 50)}}
                     </td>
                     {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {{ $report->title}}
