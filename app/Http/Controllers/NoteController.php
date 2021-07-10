@@ -50,7 +50,7 @@ class NoteController extends Controller
 
     public function notes(Request $request) {
 
-        $notes = Note::where('content', '!=', null)->get();
+        // $notes = Note::where('content', '!=', null)->get();
 
         // $reports_id;
 

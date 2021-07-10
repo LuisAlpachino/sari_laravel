@@ -1,12 +1,10 @@
 window.onload = () => {
 
-    const url = 'http://localhost/laravel/sari_laravel/public/';
-
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const reportId = document.querySelector('#folio').value;
 
     let myDropzone = new Dropzone("#resources", {
-      url: url+'save-resource',
+      url: baseUrl+'/save-resource',
       paramName: "resource", // The name that will be used to transfer the file
       acceptedFiles: 'image/*,video/*',
       maxFilesize: 100, // MB
@@ -37,7 +35,7 @@ window.onload = () => {
       file.previewElement.addEventListener("click", async() => {
         
         try {
-          const resp = await fetch(url+'delete/'+ file.url);
+          const resp = await fetch(baseUrl+'/delete/'+ file.url);
           const { message } = await resp.json();
           myDropzone.removeFile(file);
           return await message;
@@ -56,7 +54,7 @@ window.onload = () => {
 
     const getResourcesByReportId = async(reportId) => {
       try {
-        const resp = await fetch(url+'get-resources/report/'+ reportId);
+        const resp = await fetch(baseUrl+'/get-resources/report/'+ reportId);
         const { resources } = await resp.json();
         return await resources;
         
@@ -81,7 +79,7 @@ window.onload = () => {
           myDropzone.displayExistingFile(mockFile, '../images/video.png');
         } else {
           mockFile = { name: 'Borrar', url: image.url};
-          myDropzone.displayExistingFile(mockFile, url+'get-image/'+image.url);
+          myDropzone.displayExistingFile(mockFile, baseUrl+'/get-image/'+image.url);
         }
         // let mockFile = {};
         // if(formato === -1 ) {
@@ -102,7 +100,7 @@ window.onload = () => {
 
       municipalitySelected = document.querySelector('#municipalityId');
       try {
-        const resp = await fetch(url+'municipalities/'+ stateId);
+        const resp = await fetch(baseUrl+'/municipalities/'+ stateId);
           const {municipalities} = await resp.json();
           
           const selectMunipalities = document.querySelector('#municipality');
