@@ -6,6 +6,6 @@
         </h2>
     </x-slot> --}}
     <div class="p-6 bg-white border-b border-gray-200">
-        Bienvenido Lonchito Romero!
+        Bienvenido {{Auth::user()->name}}!
     </div>
 </x-app-layout>

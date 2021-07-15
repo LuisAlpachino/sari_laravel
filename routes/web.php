@@ -5,6 +5,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +41,8 @@ Route::get('/reports/year/{year}', [ReportController::class, 'reportYear'])->mid
 
 // Rutas reportes
 
-Route::get('/reports', [ReportController::class, 'allReportsEditor'])->middleware(['auth'])->name('reports.editor');
-Route::get('/report-detail/{id}', [ReportController::class, 'detail'])->middleware(['auth'])->name('report.detail')->where('id', '[0-9]+');
+Route::get('/reports', [ReportController::class, 'allReportsEditor'])->middleware(['auth', 'permission:all'])->name('reports.editor');
+Route::get('/report-detail/{id}', [ReportController::class, 'detail'])->middleware(['auth' , 'permission:all'])->name('report.detail')->where('id', '[0-9]+');
 Route::get('/new-report', [ReportController::class, 'create'])->middleware(['auth'])->name('create.report');
 Route::get('/edit-report/{id}', [ReportController::class, 'edit'])->middleware(['auth'])->name('edit.report')->where('id', '[0-9]+');
 Route::post('/save-report', [ReportController::class, 'save'])->middleware(['auth'])->name('save.report');
@@ -70,6 +71,13 @@ Route::get('/notes', [NoteController::class, 'notes'])->middleware(['auth'])->na
 Route::get('/note-detail/{id}', [NoteController::class, 'detail'])->middleware(['auth'])->name('note.detail')->where('id', '[0-9]+');
 Route::post('/search-notes', [NoteController::class, 'search'])->middleware(['auth'])->name('search.notes');
 
+
+
+
+//Rutas Users
+Route::get('/users', [UserController::class, 'users'])->middleware(['auth', 'permission:all'])->name('users');
+Route::get('/new-user', [UserController::class, 'view_new'])->middleware(['auth'])->name('new.user');
+Route::post('/save-user', [UserController::class, 'save'])->middleware(['auth'])->name('save.user');
 
 Route::get('/configurations', function () {
     return view('layouts.dashboard.config');
