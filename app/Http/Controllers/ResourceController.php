@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Resource;
 use App\Models\Report;
+use Auth;
 
 class ResourceController extends Controller
 {
@@ -44,7 +45,18 @@ class ResourceController extends Controller
     }
 
     public function getResources() {
-        $resources = Resource::where('id', '>', 0)->orderBy('created_at', 'DESC')->paginate(16);
+
+        
+        if(Auth::user()->getRoleNames()[0] == "Reporter"){
+            $reports = Report::where('fk_users', Auth::user()->id)->get(['id']);
+
+            $resources = Resource::where('id', '>', 0)
+            ->whereIn('fk_reports', $reports)
+            ->orderBy('created_at', 'DESC')->paginate(16);
+        }else{
+            $resources = Resource::where('id', '>', 0)->orderBy('created_at', 'DESC')->paginate(16);
+        }
+        
 
         return view('layouts.dashboard.media', [
             'resources' => $resources

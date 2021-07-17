@@ -23,10 +23,15 @@ class RoleAndPermissionSeeder extends Seeder
 
         Permission::create(['name' => 'report']);
         Permission::create(['name' => 'all']);
+        Permission::create(['name' => 'admin']);
+        Permission::create(['name' => 'editor']);
 
         $reporter->givePermissionTo('report');
         $admin->givePermissionTo('admin');
         $editor->givePermissionTo('editor');
+
+        $admin->givePermissionTo('all');
+        $editor->givePermissionTo('all');
 
         $user = User::find(1);
         $user->assignRole('Administrator');

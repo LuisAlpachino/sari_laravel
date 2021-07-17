@@ -8,9 +8,9 @@
         ">
     <ul class="text-white font-bold uppercase ">
         <li class="mt-6" >
-            <a class="cursor-pointer" :href="route('dashboards')">
+            <x-nav-link class="cursor-pointer" :href="route('dashboard')">
                 <x-application-logo></x-application-logo>
-            </a>
+            </x-nav-link>
         </li>
         <li class="mt-6 py-1  cursor-pointer">
             <x-nav-link  :href="route('create.report')" :active="request()->routeIs('create.report')">
@@ -18,14 +18,12 @@
                 {{ __('Nuevo reporte') }}
             </x-nav-link>
         </li>
-        @can('all')
-            <li class="mt-6 py-1 cursor-pointer">
-                <x-nav-link  :href="route('reports.editor')" :active="request()->routeIs('reports.editor')">
-                    <i class="fa fa-files fa-lg mr-1" aria-hidden="true"></i>
-                    {{ __('Reportes') }}
-                </x-nav-link>
-            </li>
-        @endcan
+        <li class="mt-6 py-1 cursor-pointer">
+            <x-nav-link  :href="route('reports.editor')" :active="request()->routeIs('reports.editor')">
+                <i class="fa fa-files fa-lg mr-1" aria-hidden="true"></i>
+                {{ __('Reportes') }}
+            </x-nav-link>
+        </li>
         <li class="mt-6 py-1 cursor-pointer">
             <x-nav-link  :href="route('notes')" :active="request()->routeIs('notes')">
                 <i class="fa fa-commenting-o fa-lg mr-1" aria-hidden="true"></i>
@@ -52,12 +50,12 @@
             </x-nav-link>
         </li>
         @endcan
-        <li class="mt-48 py-1 cursor-pointer border-t-4">
+        <!-- <li class="mt-48 py-1 cursor-pointer border-t-4">
             <x-nav-link  :href="route('configurations')" :active="request()->routeIs('configurations')">
                 <i class="fa fa-cogs fa-lg mr-1" aria-hidden="true"></i>
                 {{ __('Configuración') }}
             </x-nav-link>
-        </li>
+        </li> -->
 
         </a>
     </ul>

@@ -41,8 +41,8 @@ Route::get('/reports/year/{year}', [ReportController::class, 'reportYear'])->mid
 
 // Rutas reportes
 
-Route::get('/reports', [ReportController::class, 'allReportsEditor'])->middleware(['auth', 'permission:all'])->name('reports.editor');
-Route::get('/report-detail/{id}', [ReportController::class, 'detail'])->middleware(['auth' , 'permission:all'])->name('report.detail')->where('id', '[0-9]+');
+Route::get('/reports', [ReportController::class, 'allReportsEditor'])->middleware(['auth'])->name('reports.editor');
+Route::get('/report-detail/{id}', [ReportController::class, 'detail'])->middleware(['auth'])->name('report.detail')->where('id', '[0-9]+');
 Route::get('/new-report', [ReportController::class, 'create'])->middleware(['auth'])->name('create.report');
 Route::get('/edit-report/{id}', [ReportController::class, 'edit'])->middleware(['auth'])->name('edit.report')->where('id', '[0-9]+');
 Route::post('/save-report', [ReportController::class, 'save'])->middleware(['auth'])->name('save.report');
