@@ -10,6 +10,7 @@ use App\Models\State;
 use App\Models\NewsType;
 use App\Models\Municipality;
 use App\Models\Note;
+use Auth;
 
 class ReportController extends Controller
 {
@@ -131,7 +132,16 @@ class ReportController extends Controller
 
     public function allReportsEditor() {
 
-        $reports = Report::where('id', '>=', 1)->orderBy('created_at', 'desc')->paginate(15);
+        if(Auth::user()->getRoleNames()[0] == "Reporter"){
+            $reports = Report::where('id', '>', 0)
+                                ->where('fk_users', Auth::user()->id)
+                                ->orderBy('created_at', 'desc')->paginate(15);
+            $resources = [];
+        }else{
+            $reports = Report::where('id', '>=', 1)->orderBy('created_at', 'desc')->paginate(15);
+        }
+
+        
         
         return view('layouts.dashboard.reports', [
             'reports' => $reports

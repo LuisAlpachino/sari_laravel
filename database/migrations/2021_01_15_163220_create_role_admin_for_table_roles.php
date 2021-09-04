@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Hash;
 
 //Models
-use App\Models\Rol;
 use App\Models\User;
 
 class CreateRoleAdminForTableRoles extends Migration
@@ -18,19 +17,6 @@ class CreateRoleAdminForTableRoles extends Migration
      */
     public function up()
     {
-        $array = [
-            [ 'name' => 'ADMIN', 'description' => 'Super usuario' ],
-            [ 'name' => 'REPORTERO', 'description' => 'Rol para el reportero'],
-            [ 'name' => 'EDITOR', 'description' => 'Super usuario'],
-            ];
-
-        foreach ($array as  $data) {
-            Rol::create([    
-                'name' => $data['name'],
-                'description' => $data['description'],
-                'status' => 'ACTIVO'
-            ]);
-        }
 
         //create admin
         User::create([
@@ -41,9 +27,8 @@ class CreateRoleAdminForTableRoles extends Migration
             'status' => 'ACTIVO',
             'phone' => '0000000000',
             'position' => 'admin',
-            'fk_roles' => 1
         ]);
-       
+
     }
 
     /**
@@ -53,6 +38,6 @@ class CreateRoleAdminForTableRoles extends Migration
      */
     public function down()
     {
-        
+        User::where('email', "admin@admin.com")->delete();
     }
 }

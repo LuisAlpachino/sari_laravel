@@ -94,9 +94,16 @@
                         {{ $report->user->name.' '.$report->user->last_name}}
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="{{route('report.detail', $report->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
-                        Ver
-                      </a>
+                      @can('all')
+                        <a href="{{route('report.detail', $report->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
+                          Ver
+                        </a>
+                      @endcan
+                      @can('report')
+                        <a href="{{route('edit.report', $report->id)}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded">
+                          Ver
+                        </a>
+                      @endcan
                       {{-- <a href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         Multimedia
                       </a> --}}

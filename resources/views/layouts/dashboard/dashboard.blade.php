@@ -105,6 +105,7 @@
                 </div>
             </div>
 
+            @can('all')
             <div class="grid grid-cols-1 gap-4">
                 <div class="lg:m-4 shadow-md hover:shadow-lg rounded-lg bg-white my-12 mx-8 grid grid-cols-3">
                     <div class="h-96 md:col-span-2 sm:col-span-3" id="chart_month"></div>
@@ -162,6 +163,7 @@
                 <div>4</div> --}}
                 
             </div>
+            @endcan
            
     </div>
 
